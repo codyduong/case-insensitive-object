@@ -1,11 +1,11 @@
 {
   "name": "case-insensitive-object",
   "description": "CaseInsensitiveObject implementation, inspired by CaseInsensitiveDict from Python",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Cody Duong",
   "license": "MIT",
-  "main": "dist/src/index.js",
-  "types": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "yarn jest",
     "ci": "yarn install --frozen-lockfile",
