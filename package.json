@@ -39,5 +39,9 @@
   "bugs": {
     "url": "https://github.com/codyduong/case-insensitive-object/issues"
   },
-  "homepage": "https://github.com/codyduong/case-insensitive-object#readme"
+  "homepage": "https://github.com/codyduong/case-insensitive-object#readme",
+  "keywords": [
+    "Case Insensitive Object",
+    "Case Insensitive"
+  ]
 }
