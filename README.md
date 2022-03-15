@@ -1,3 +1,7 @@
+[![Downloads](https://img.shields.io/npm/dm/case-insensitive-object?style=flat-square)](https://www.npmjs.com/package/case-insensitive-object)
+[![Code coverage](https://img.shields.io/codecov/c/github/codyduong/case-insensitive-object?style=flat-square)](https://codecov.io/gh/codyduong/case-insensitive-object)
+[![Latest release](https://img.shields.io/github/v/release/codyduong/case-insensitive-object?style=flat-square)](https://github.com/codyduong/case-insensitive-object/releases)
+[![Commits since latest release](https://img.shields.io/github/commits-since/codyduong/case-insensitive-object/latest?style=flat-square)](https://github.com/codyduong/case-insensitive-object/releases)
 # Case Insensitive Object
 A case insensitive implementation of the Object class in TypeScript/JavaScript.
 
