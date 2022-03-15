@@ -32,7 +32,7 @@ console.log(obj['foo'])           // -> undefined
 ```
 
 ## Idiosyncrasies
-`Object.keys(new CaseInsensitiveObj({'FoO': bar})) == ['FoO']`
+`Object.keys(new CaseInsensitiveObj({'FoO': bar})) --> ['FoO']`
 
 To allow a user to reconstruct the original object, we preserve the casing
 
