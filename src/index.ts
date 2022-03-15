@@ -1,52 +1,24 @@
-type _AnyCase<T extends string> = string extends T
-  ? string
-  : T extends `${infer F1}${infer F2}${infer R}`
-  ? `${Uppercase<F1> | Lowercase<F1>}${
-      | Uppercase<F2>
-      | Lowercase<F2>}${_AnyCase<R>}`
-  : T extends `${infer F}${infer R}`
-  ? `${Uppercase<F> | Lowercase<F>}${_AnyCase<R>}`
-  : '';
-
-type AllCase<T> = T & {
-  [Key in keyof T as Key extends string ? Lowercase<Key> : Key]: T[Key];
-} & {
-  [Key in keyof T as Key extends string
-    ? Capitalize<Lowercase<Key>>
-    : Key]: T[Key];
-} & {
-  [Key in keyof T as Key extends string ? Uppercase<Key> : Key]: T[Key];
-} & {
-  [Key in keyof T as Key extends string ? Capitalize<Key> : Key]: T[Key];
-} & {
-  [Key in keyof T as Key extends string ? string : Key]: any;
-} & {
-  //[Key in keyof T as Key extends string ? AnyCase<Key> : Key]: T[Key]; This creates a too complex union
-};
+import { AllCase, AnyKeyCase } from './types';
 
 export default function CaseInsensitiveObjectFactory<
   T extends Record<any, any>
->(value: T): AllCase<T> {
-  return new CaseInsensitiveObject(value) as unknown as AllCase<T>;
+>(value: T): CaseInsensitiveObject<T> & AllCase<T> {
+  return new CaseInsensitiveObject(value) as CaseInsensitiveObject<T> &
+    AllCase<T>;
 }
 
-type AnyKeyCase<
-  K extends keyof T,
-  T extends Record<string, any>
-> = K extends string
-  ? keyof T extends string
-    ? Lowercase<K> extends Lowercase<keyof T>
-      ? K
-      : keyof T
-    : K
-  : K;
-
-export class CaseInsensitiveObject<T extends Record<any, any>> extends Object {
+/**
+ * It is highly recommended to use the default export of this module instead,
+ * the CaseInsensitiveObjectFactory to construct a new CaseInsensitiveObject Instance.
+ * Type-hints will not be available if you construct using this class.
+ * Otherwise use this class for static methods.
+ */
+export class CaseInsensitiveObject<T extends Record<any, any>> {
   #keys: (keyof T)[] = [];
   #insensitiveKeys: (keyof T)[] = [];
   constructor(value: T) {
     const proxyObject = new Proxy(value, {
-      set: <K extends keyof T>(
+      set: <K extends symbol | string>(
         target: object,
         prop: AnyKeyCase<K, T>,
         value: any,
@@ -132,15 +104,24 @@ export class CaseInsensitiveObject<T extends Record<any, any>> extends Object {
         }
       },
     });
-    super(proxyObject);
     this.#keys = Object.keys(value);
     this.#insensitiveKeys = Object.keys(value).map((value) =>
       typeof value == 'string' ? value.toLowerCase() : value
     );
-    //@ts-expect-error: We override the constructor return
-    return proxyObject as unknown as AllCase<T>;
+    return Object.assign(proxyObject, {
+      // get<U extends string>(string: AnyKeyCase<U, T>): T[U] {
+      //   //@ts-expect-error: Sure it can
+      //   return this[string];
+      // },
+      // set<U extends string>(
+      //   string: AnyKeyCase<U, T>,
+      //   value: T extends symbol | string ? T[keyof T] : any
+      // ) {
+      //   //@ts-expect-error: Sure it can
+      //   this[string] = value;
+      // },
+    }) as unknown as CaseInsensitiveObject<T> & AllCase<T>;
   }
-  [x: string]: any;
 
   static fromEntries<T = any>(
     entries: Iterable<readonly [PropertyKey, T]>

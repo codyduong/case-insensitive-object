@@ -30,7 +30,7 @@ module.exports = {
           'error',
           { varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
         ],
-        '@typescript-eslint/explicit-function-return-type': ['error'],
+        '@typescript-eslint/explicit-function-return-type': ['off'],
         'no-empty-function': 'off',
         '@typescript-eslint/no-empty-function': ['warn'],
       },
