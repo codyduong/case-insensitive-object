@@ -1,7 +1,7 @@
 {
   "name": "case-insensitive-object",
   "description": "CaseInsensitiveObject implementation, inspired by CaseInsensitiveDict from Python",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "author": "Cody Duong",
   "license": "MIT",
   "main": "dist/index.js",

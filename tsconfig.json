@@ -4,7 +4,7 @@
     "allowJs": false,
     "incremental": true,
     "target": "es6",
-    "moduleResolution": "Node",
+    "module": "commonJS",
     "types": ["jest", "node"],
     "esModuleInterop": true,
     "outDir": "dist",
