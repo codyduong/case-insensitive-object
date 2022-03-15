@@ -15,6 +15,9 @@ describe('Setting/Getting', () => {
     test('in keyword', () => {
       expect('tEsT' in objI).toBe(true);
     });
+    test('! in keyword', () => {
+      expect('anything' in objI).toBe(false);
+    });
   });
   describe('Keys', () => {
     test('Compare Keys', () => {
