@@ -1,6 +1,6 @@
 import { Split } from 'type-fest';
 
-type WordSeparator = '-';
+type WordSeparator = '-' | '_';
 
 type InnerCamelCaseStringArray<
   Parts extends readonly any[],
@@ -10,7 +10,7 @@ type InnerCamelCaseStringArray<
     ? ''
     : FirstPart extends ''
     ? InnerCamelCaseStringArray<RemainingParts, PreviousPart>
-    : `-${PreviousPart extends ''
+    : `${WordSeparator}${PreviousPart extends ''
         ? FirstPart
         : Capitalize<FirstPart>}${InnerCamelCaseStringArray<
         RemainingParts,
@@ -50,7 +50,7 @@ export type AllCase<T extends Record<any, any>> = T & {
 } & {
   [Key in keyof T as Key extends string ? HTTPHeader<Key> : Key]: T[Key];
 } & {
-  [Key in keyof T as Key extends string ? string : Key]: any;
+  // [Key in keyof T as Key extends string ? string : Key]: any;
 } & {
   //[Key in keyof T as Key extends string ? AnyCase<Key> : Key]: T[Key]; This creates a too complex union
 } & {
@@ -62,6 +62,11 @@ export type AllCase<T extends Record<any, any>> = T & {
   //   value: T extends symbol | string ? T[keyof T] : any
   // );
 };
+
+type _AnyKeyCaseNumberHandler<
+  K extends symbol | string | number,
+  T extends Record<any, any>
+> = K extends symbol | string ? AnyKeyCase<K, T> : never;
 
 export type AnyKeyCase<
   K extends symbol | string,
