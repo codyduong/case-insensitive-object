@@ -45,7 +45,8 @@
     "Case Insensitive"
   ],
   "files": [
-    "dist",
+    "dist/*.js",
+    "dist/*.d.ts",
     "LICENSE"
   ]
 }
